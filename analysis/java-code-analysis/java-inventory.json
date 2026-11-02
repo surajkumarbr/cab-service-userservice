@@ -1,0 +1,544 @@
+{
+  "repository_root": "C:\\ADLC\\DA\\cca_distributed_agentic_framework\\custom_agent_helper_worker\\custom_agent_helper_worker\\cache\\src_k3a6nvgv",
+  "java_file_count": 16,
+  "build_file_count": 1,
+  "configuration_file_count": 1,
+  "java_files": [
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+      "package": "com.example.driver",
+      "imports": [
+        "org.modelmapper.ModelMapper",
+        "org.springframework.boot.SpringApplication",
+        "org.springframework.boot.autoconfigure.SpringBootApplication",
+        "org.springframework.cloud.openfeign.EnableFeignClients",
+        "org.springframework.context.annotation.Bean",
+        "org.springframework.data.jpa.repository.config.EnableJpaAuditing",
+        "org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder",
+        "org.springframework.security.crypto.password.PasswordEncoder"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "Application"
+        }
+      ],
+      "annotations": [
+        "Bean",
+        "EnableFeignClients",
+        "EnableJpaAuditing",
+        "SpringBootApplication"
+      ],
+      "method_signatures_best_effort": [
+        {
+          "name": "main",
+          "parameters": "String[] args"
+        },
+        {
+          "name": "modelMapper",
+          "parameters": ""
+        },
+        {
+          "name": "passwordEncoder",
+          "parameters": ""
+        }
+      ],
+      "line_count": 30
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+      "package": "com.example.driver.controller",
+      "imports": [
+        "com.example.driver.entity.Driver",
+        "com.example.driver.exception.UserAlreadyPresentException",
+        "com.example.driver.exception.UserNotFoundException",
+        "com.example.driver.payload.DriverDto",
+        "com.example.driver.payload.UpdateDriverDetailsDto",
+        "com.example.driver.repository.DriverRepository",
+        "com.example.driver.service.DriverService",
+        "jakarta.validation.Valid",
+        "org.springframework.beans.factory.annotation.Autowired",
+        "org.springframework.http.ResponseEntity",
+        "org.springframework.web.bind.annotation.*",
+        "java.util.List",
+        "java.util.Optional"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "DriverController"
+        }
+      ],
+      "annotations": [
+        "Autowired",
+        "DeleteMapping",
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "PutMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RestController",
+        "Valid"
+      ],
+      "method_signatures_best_effort": [
+        {
+          "name": "addOneDriver",
+          "parameters": "@Valid @RequestBody Driver driver"
+        },
+        {
+          "name": "getDriverById",
+          "parameters": "@PathVariable(\"driverId\""
+        },
+        {
+          "name": "deleteDriverUsingId",
+          "parameters": "@PathVariable(\"driverId\""
+        },
+        {
+          "name": "updateDriverDetails",
+          "parameters": "@PathVariable(\"driverId\""
+        },
+        {
+          "name": "getAllDriver",
+          "parameters": ""
+        },
+        {
+          "name": "updateDriverStatus",
+          "parameters": "@PathVariable(\"driverId\""
+        },
+        {
+          "name": "getDriverByName",
+          "parameters": "@PathVariable(\"username\""
+        }
+      ],
+      "line_count": 65
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/DriverDao.java",
+      "package": "com.example.driver.dao",
+      "imports": [
+        "com.example.driver.entity.Driver",
+        "com.example.driver.exception.UserAlreadyPresentException",
+        "com.example.driver.exception.UserNotFoundException",
+        "com.example.driver.payload.DriverDto",
+        "com.example.driver.payload.UpdateDriverDetailsDto",
+        "org.springframework.http.ResponseEntity",
+        "java.util.List",
+        "java.util.Optional"
+      ],
+      "types": [
+        {
+          "kind": "interface",
+          "name": "DriverDao"
+        }
+      ],
+      "annotations": [],
+      "method_signatures_best_effort": [],
+      "line_count": 27
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+      "package": "com.example.driver.dao.impl",
+      "imports": [
+        "com.example.driver.dao.DriverDao",
+        "com.example.driver.entity.Driver",
+        "com.example.driver.exception.UserAlreadyPresentException",
+        "com.example.driver.exception.UserNotFoundException",
+        "com.example.driver.payload.DriverDto",
+        "com.example.driver.payload.UpdateDriverDetailsDto",
+        "com.example.driver.repository.DriverRepository",
+        "org.modelmapper.ModelMapper",
+        "org.springframework.beans.factory.annotation.Autowired",
+        "org.springframework.http.HttpStatus",
+        "org.springframework.http.ResponseEntity",
+        "org.springframework.security.crypto.password.PasswordEncoder",
+        "org.springframework.stereotype.Component",
+        "java.util.List",
+        "java.util.Optional",
+        "java.util.stream.Collectors"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "DriverDaoImpl"
+        }
+      ],
+      "annotations": [
+        "Autowired",
+        "Component",
+        "Override"
+      ],
+      "method_signatures_best_effort": [
+        {
+          "name": "addOneDriver",
+          "parameters": "Driver driver"
+        },
+        {
+          "name": "getDriverById",
+          "parameters": "Long driverId"
+        },
+        {
+          "name": "deleteDriverById",
+          "parameters": "Long driverId"
+        },
+        {
+          "name": "updateDriverDetails",
+          "parameters": "Long driverId, UpdateDriverDetailsDto updateDriverDetailsDto"
+        },
+        {
+          "name": "getAllDriverDetails",
+          "parameters": ""
+        },
+        {
+          "name": "updateDriverStatus",
+          "parameters": "Long driverId, DriverDto driverDto"
+        },
+        {
+          "name": "getDriverByName",
+          "parameters": "String username"
+        },
+        {
+          "name": "mapToEntity",
+          "parameters": "DriverDto driverDto"
+        },
+        {
+          "name": "mapToDto",
+          "parameters": "Driver driver"
+        }
+      ],
+      "line_count": 128
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/BaseEntity.java",
+      "package": "com.example.driver.entity",
+      "imports": [
+        "jakarta.persistence.Column",
+        "jakarta.persistence.EntityListeners",
+        "jakarta.persistence.MappedSuperclass",
+        "lombok.Data",
+        "org.springframework.data.annotation.CreatedBy",
+        "org.springframework.data.annotation.CreatedDate",
+        "org.springframework.data.annotation.LastModifiedBy",
+        "org.springframework.data.annotation.LastModifiedDate",
+        "org.springframework.data.jpa.domain.support.AuditingEntityListener",
+        "java.time.LocalDateTime"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "BaseEntity"
+        }
+      ],
+      "annotations": [
+        "Column",
+        "CreatedBy",
+        "CreatedDate",
+        "Data",
+        "EntityListeners",
+        "LastModifiedBy",
+        "LastModifiedDate",
+        "MappedSuperclass"
+      ],
+      "method_signatures_best_effort": [],
+      "line_count": 34
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/Driver.java",
+      "package": "com.example.driver.entity",
+      "imports": [
+        "jakarta.persistence.*",
+        "jakarta.validation.constraints.Email",
+        "jakarta.validation.constraints.NotEmpty",
+        "lombok.Data"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "Driver"
+        }
+      ],
+      "annotations": [
+        "Data",
+        "Email",
+        "Entity",
+        "GeneratedValue",
+        "Id",
+        "NotEmpty",
+        "Table"
+      ],
+      "method_signatures_best_effort": [],
+      "line_count": 24
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/exception/GlobalExceptionHandler.java",
+      "package": "com.example.driver.exception",
+      "imports": [
+        "com.example.driver.payload.ExceptionDto",
+        "org.springframework.http.HttpHeaders",
+        "org.springframework.http.HttpStatus",
+        "org.springframework.http.HttpStatusCode",
+        "org.springframework.http.ResponseEntity",
+        "org.springframework.web.bind.MethodArgumentNotValidException",
+        "org.springframework.web.bind.annotation.ControllerAdvice",
+        "org.springframework.web.bind.annotation.ExceptionHandler",
+        "org.springframework.web.context.request.WebRequest",
+        "org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler",
+        "java.time.LocalDate"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "GlobalExceptionHandler"
+        }
+      ],
+      "annotations": [
+        "ControllerAdvice",
+        "ExceptionHandler",
+        "Override"
+      ],
+      "method_signatures_best_effort": [
+        {
+          "name": "handleAllExceptions",
+          "parameters": "Exception ex, WebRequest request"
+        },
+        {
+          "name": "handleRuntimeExceptions",
+          "parameters": "RuntimeException ex, WebRequest request"
+        },
+        {
+          "name": "handleUserAlreadyPresentException",
+          "parameters": "Exception ex, WebRequest request"
+        },
+        {
+          "name": "handleUserNotFoundException",
+          "parameters": "Exception ex, WebRequest request"
+        },
+        {
+          "name": "handleMethodArgumentNotValid",
+          "parameters": "MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request"
+        }
+      ],
+      "line_count": 57
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/exception/UserAlreadyPresentException.java",
+      "package": "com.example.driver.exception",
+      "imports": [],
+      "types": [
+        {
+          "kind": "class",
+          "name": "UserAlreadyPresentException"
+        }
+      ],
+      "annotations": [],
+      "method_signatures_best_effort": [],
+      "line_count": 7
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/exception/UserNotFoundException.java",
+      "package": "com.example.driver.exception",
+      "imports": [],
+      "types": [
+        {
+          "kind": "class",
+          "name": "UserNotFoundException"
+        }
+      ],
+      "annotations": [],
+      "method_signatures_best_effort": [],
+      "line_count": 7
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/payload/DriverDto.java",
+      "package": "com.example.driver.payload",
+      "imports": [
+        "com.fasterxml.jackson.annotation.JsonIgnore",
+        "lombok.Data",
+        "java.time.LocalDateTime"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "DriverDto"
+        }
+      ],
+      "annotations": [
+        "Data",
+        "JsonIgnore"
+      ],
+      "method_signatures_best_effort": [],
+      "line_count": 18
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/payload/ExceptionDto.java",
+      "package": "com.example.driver.payload",
+      "imports": [
+        "lombok.AllArgsConstructor",
+        "lombok.Data",
+        "java.time.LocalDate"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "ExceptionDto"
+        }
+      ],
+      "annotations": [
+        "AllArgsConstructor",
+        "Data"
+      ],
+      "method_signatures_best_effort": [],
+      "line_count": 15
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/payload/UpdateDriverDetailsDto.java",
+      "package": "com.example.driver.payload",
+      "imports": [
+        "lombok.Data"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "UpdateDriverDetailsDto"
+        }
+      ],
+      "annotations": [
+        "Data"
+      ],
+      "method_signatures_best_effort": [],
+      "line_count": 10
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/repository/DriverRepository.java",
+      "package": "com.example.driver.repository",
+      "imports": [
+        "com.example.driver.entity.Driver",
+        "org.springframework.data.jpa.repository.JpaRepository",
+        "java.util.Optional"
+      ],
+      "types": [
+        {
+          "kind": "interface",
+          "name": "DriverRepository"
+        }
+      ],
+      "annotations": [],
+      "method_signatures_best_effort": [],
+      "line_count": 17
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/service/DriverService.java",
+      "package": "com.example.driver.service",
+      "imports": [
+        "com.example.driver.entity.Driver",
+        "com.example.driver.exception.UserAlreadyPresentException",
+        "com.example.driver.exception.UserNotFoundException",
+        "com.example.driver.payload.DriverDto",
+        "com.example.driver.payload.UpdateDriverDetailsDto",
+        "org.springframework.http.ResponseEntity",
+        "java.util.List",
+        "java.util.Optional"
+      ],
+      "types": [
+        {
+          "kind": "interface",
+          "name": "DriverService"
+        }
+      ],
+      "annotations": [],
+      "method_signatures_best_effort": [],
+      "line_count": 28
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/service/impl/DriverServiceImpl.java",
+      "package": "com.example.driver.service.impl",
+      "imports": [
+        "com.example.driver.dao.DriverDao",
+        "com.example.driver.entity.Driver",
+        "com.example.driver.exception.UserAlreadyPresentException",
+        "com.example.driver.exception.UserNotFoundException",
+        "com.example.driver.payload.DriverDto",
+        "com.example.driver.payload.UpdateDriverDetailsDto",
+        "com.example.driver.service.DriverService",
+        "org.springframework.beans.factory.annotation.Autowired",
+        "org.springframework.http.ResponseEntity",
+        "org.springframework.stereotype.Service",
+        "java.util.List",
+        "java.util.Optional"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "DriverServiceImpl"
+        }
+      ],
+      "annotations": [
+        "Autowired",
+        "Override",
+        "Service"
+      ],
+      "method_signatures_best_effort": [
+        {
+          "name": "addOneDriver",
+          "parameters": "Driver driver"
+        },
+        {
+          "name": "getDriverById",
+          "parameters": "Long driverId"
+        },
+        {
+          "name": "deleteDriverById",
+          "parameters": "Long driverId"
+        },
+        {
+          "name": "updateDriverDetails",
+          "parameters": "Long driverId, UpdateDriverDetailsDto updateDriverDetailsDto"
+        },
+        {
+          "name": "getAllDriverDetails",
+          "parameters": ""
+        },
+        {
+          "name": "updateDriverStatus",
+          "parameters": "Long driverId, DriverDto driverDto"
+        },
+        {
+          "name": "getDriverByName",
+          "parameters": "String username"
+        }
+      ],
+      "line_count": 57
+    },
+    {
+      "path": "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/test/java/com/example/driver/ApplicationTests.java",
+      "package": "com.example.driver",
+      "imports": [
+        "org.junit.jupiter.api.Test",
+        "org.springframework.boot.test.context.SpringBootTest"
+      ],
+      "types": [
+        {
+          "kind": "class",
+          "name": "ApplicationTests"
+        }
+      ],
+      "annotations": [
+        "SpringBootTest",
+        "Test"
+      ],
+      "method_signatures_best_effort": [],
+      "line_count": 13
+    }
+  ],
+  "build_files": [
+    "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml"
+  ],
+  "configuration_files": [
+    "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/resources/application.properties"
+  ],
+  "limitations": [
+    "Regex-based inventory is best-effort, not a Java AST.",
+    "It does not resolve symbols, overloads, inheritance, runtime wiring, or call graphs.",
+    "Generated, vendored, and excluded build directories are not inventoried."
+  ]
+}

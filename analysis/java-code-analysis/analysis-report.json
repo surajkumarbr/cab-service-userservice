@@ -1,0 +1,1117 @@
+{
+    "security":  {
+                     "not_assessed":  [
+                                          "Authentication/authorization config",
+                                          "CORS/CSRF settings"
+                                      ],
+                     "observations":  [
+                                          {
+                                              "evidence":  [
+                                                               {
+                                                                   "note":  "BCrypt bean",
+                                                                   "line_start":  26,
+                                                                   "line_end":  29,
+                                                                   "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+                                                                   "method":  "passwordEncoder",
+                                                                   "symbol":  "Application#passwordEncoder"
+                                                               },
+                                                               {
+                                                                   "note":  "encode call",
+                                                                   "line_start":  40,
+                                                                   "line_end":  41,
+                                                                   "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                                   "method":  "addOneDriver",
+                                                                   "symbol":  "DriverDaoImpl#addOneDriver"
+                                                               }
+                                                           ],
+                                              "status":  "confirmed",
+                                              "description":  "Passwords are BCrypt-encoded on driver creation."
+                                          },
+                                          {
+                                              "evidence":  [
+                                                               {
+                                                                   "note":  "Returns Optional\u003cDriver\u003e",
+                                                                   "line_start":  59,
+                                                                   "line_end":  62,
+                                                                   "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                                   "method":  "getDriverByName",
+                                                                   "symbol":  "DriverController#getDriverByName"
+                                                               },
+                                                               {
+                                                                   "note":  "Entity has password field",
+                                                                   "line_start":  17,
+                                                                   "line_end":  22,
+                                                                   "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/Driver.java",
+                                                                   "method":  null,
+                                                                   "symbol":  "Driver"
+                                                               }
+                                                           ],
+                                              "status":  "confirmed",
+                                              "description":  "GET /api/driver/name/{username} returns Driver entity (includes password field) and may expose password hashes."
+                                          }
+                                      ]
+                 },
+    "recommendations":  [
+                            {
+                                "priority":  "high",
+                                "description":  "Adopt DB migrations and disable ddl-auto update in non-dev.",
+                                "rationale":  "Reduces production schema drift."
+                            },
+                            {
+                                "priority":  "high",
+                                "description":  "Stop returning entities containing password; use DTOs.",
+                                "rationale":  "Avoids sensitive data leakage."
+                            }
+                        ],
+    "report_metadata":  {
+                            "generated_at":  "2026-11-02T13:42:39.855+05:30",
+                            "agent":  "java-code-analyst",
+                            "skill_version":  "java-code-analysis@1.0"
+                        },
+    "repository":  {
+                       "name":  "cab-service-userservice",
+                       "root":  "C:\\ADLC\\DA\\cca_distributed_agentic_framework\\custom_agent_helper_worker\\custom_agent_helper_worker\\cache\\src_k3a6nvgv"
+                   },
+    "persistence":  {
+                        "migrations":  [
+
+                                       ],
+                        "repositories":  [
+                                             {
+                                                 "evidence":  [
+                                                                  {
+                                                                      "note":  "Derived methods",
+                                                                      "line_start":  8,
+                                                                      "line_end":  13,
+                                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/repository/DriverRepository.java",
+                                                                      "method":  null,
+                                                                      "symbol":  "DriverRepository"
+                                                                  }
+                                                              ],
+                                                 "entity":  "com.example.driver.entity.Driver",
+                                                 "methods":  [
+                                                                 "existsByEmail",
+                                                                 "existsByUsername",
+                                                                 "findByUsername"
+                                                             ],
+                                                 "repository":  "com.example.driver.repository.DriverRepository"
+                                             }
+                                         ],
+                        "entities":  [
+                                         {
+                                             "table":  "drives",
+                                             "evidence":  [
+                                                              {
+                                                                  "note":  "@Table(name=\"drives\")",
+                                                                  "line_start":  9,
+                                                                  "line_end":  24,
+                                                                  "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/Driver.java",
+                                                                  "method":  null,
+                                                                  "symbol":  "Driver"
+                                                              }
+                                                          ],
+                                             "entity":  "com.example.driver.entity.Driver",
+                                             "repository":  "com.example.driver.repository.DriverRepository"
+                                         },
+                                         {
+                                             "table":  null,
+                                             "evidence":  [
+                                                              {
+                                                                  "note":  "Auditing columns",
+                                                                  "line_start":  15,
+                                                                  "line_end":  31,
+                                                                  "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/BaseEntity.java",
+                                                                  "method":  null,
+                                                                  "symbol":  "BaseEntity"
+                                                              }
+                                                          ],
+                                             "entity":  "com.example.driver.entity.BaseEntity",
+                                             "repository":  null
+                                         }
+                                     ],
+                        "notes":  [
+                                      "No Flyway/Liquibase migrations found.",
+                                      "DDL appears managed via Hibernate ddl-auto=update (see application.properties)."
+                                  ]
+                    },
+    "modules":  [
+                    {
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service",
+                        "build_system":  "maven",
+                        "name":  "Cab-Service-Driver-Service"
+                    }
+                ],
+    "coverage":  {
+                     "modules":  [
+                                     {
+                                         "status":  "inspected",
+                                         "name":  "Cab-Service-Driver-Service",
+                                         "notes":  "All production Java sources and primary config/pom reviewed. Excluded target/ build output."
+                                     }
+                                 ],
+                     "status":  "complete"
+                 },
+    "technology_stack":  [
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "java.version",
+                                                      "line_start":  29,
+                                                      "line_end":  33,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                      "method":  null,
+                                                      "symbol":  "pom.xml"
+                                                  }
+                                              ],
+                                 "name":  "Java",
+                                 "version":  "17"
+                             },
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "spring-boot-starter-parent",
+                                                      "line_start":  5,
+                                                      "line_end":  10,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                      "method":  null,
+                                                      "symbol":  "pom.xml"
+                                                  }
+                                              ],
+                                 "name":  "Spring Boot",
+                                 "version":  "3.3.1"
+                             },
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "spring-boot-starter-web",
+                                                      "line_start":  34,
+                                                      "line_end":  43,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                      "method":  null,
+                                                      "symbol":  "pom.xml"
+                                                  },
+                                                  {
+                                                      "note":  "@RestController mappings",
+                                                      "line_start":  18,
+                                                      "line_end":  65,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                      "method":  null,
+                                                      "symbol":  "DriverController"
+                                                  }
+                                              ],
+                                 "name":  "Spring Web (MVC)",
+                                 "version":  null
+                             },
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "spring-boot-starter-data-jpa",
+                                                      "line_start":  34,
+                                                      "line_end":  38,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                      "method":  null,
+                                                      "symbol":  "pom.xml"
+                                                  },
+                                                  {
+                                                      "note":  "JpaRepository + derived queries",
+                                                      "line_start":  8,
+                                                      "line_end":  13,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/repository/DriverRepository.java",
+                                                      "method":  null,
+                                                      "symbol":  "DriverRepository"
+                                                  }
+                                              ],
+                                 "name":  "Spring Data JPA",
+                                 "version":  null
+                             },
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "mysql-connector-j",
+                                                      "line_start":  50,
+                                                      "line_end":  54,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                      "method":  null,
+                                                      "symbol":  "pom.xml"
+                                                  },
+                                                  {
+                                                      "note":  "MySQL datasource config (password redacted in file)",
+                                                      "line_start":  3,
+                                                      "line_end":  10,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/resources/application.properties",
+                                                      "method":  null,
+                                                      "symbol":  "application.properties"
+                                                  }
+                                              ],
+                                 "name":  "MySQL Connector/J",
+                                 "version":  null
+                             },
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "modelmapper dependency",
+                                                      "line_start":  65,
+                                                      "line_end":  69,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                      "method":  null,
+                                                      "symbol":  "pom.xml"
+                                                  },
+                                                  {
+                                                      "note":  "ModelMapper bean",
+                                                      "line_start":  21,
+                                                      "line_end":  24,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+                                                      "method":  "modelMapper",
+                                                      "symbol":  "Application#modelMapper"
+                                                  }
+                                              ],
+                                 "name":  "ModelMapper",
+                                 "version":  "2.4.4"
+                             },
+                             {
+                                 "evidence":  [
+                                                  {
+                                                      "note":  "BCrypt bean",
+                                                      "line_start":  26,
+                                                      "line_end":  29,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+                                                      "method":  "passwordEncoder",
+                                                      "symbol":  "Application#passwordEncoder"
+                                                  },
+                                                  {
+                                                      "note":  "passwordEncoder.encode",
+                                                      "line_start":  40,
+                                                      "line_end":  41,
+                                                      "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                      "method":  "addOneDriver",
+                                                      "symbol":  "DriverDaoImpl#addOneDriver"
+                                                  }
+                                              ],
+                                 "name":  "Spring Security Crypto",
+                                 "version":  null
+                             }
+                         ],
+    "classes":  [
+                    {
+                        "name":  "Application",
+                        "evidence":  [
+                                         {
+                                             "note":  "Annotations and beans",
+                                             "line_start":  12,
+                                             "line_end":  29,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+                                             "method":  null,
+                                             "symbol":  "Application"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.Application",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+                        "type":  "class",
+                        "responsibility":  "Boot app; beans; enables auditing + Feign"
+                    },
+                    {
+                        "name":  "DriverController",
+                        "evidence":  [
+                                         {
+                                             "note":  "Mappings",
+                                             "line_start":  18,
+                                             "line_end":  65,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                             "method":  null,
+                                             "symbol":  "DriverController"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.controller.DriverController",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                        "type":  "class",
+                        "responsibility":  "Driver REST endpoints"
+                    },
+                    {
+                        "name":  "DriverServiceImpl",
+                        "evidence":  [
+                                         {
+                                             "note":  "Delegation",
+                                             "line_start":  17,
+                                             "line_end":  55,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/service/impl/DriverServiceImpl.java",
+                                             "method":  null,
+                                             "symbol":  "DriverServiceImpl"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.service.impl.DriverServiceImpl",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/service/impl/DriverServiceImpl.java",
+                        "type":  "class",
+                        "responsibility":  "Delegates to DAO"
+                    },
+                    {
+                        "name":  "DriverDaoImpl",
+                        "evidence":  [
+                                         {
+                                             "note":  "Implementation",
+                                             "line_start":  21,
+                                             "line_end":  127,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                             "method":  null,
+                                             "symbol":  "DriverDaoImpl"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.dao.impl.DriverDaoImpl",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                        "type":  "class",
+                        "responsibility":  "Rules + persistence + mapping"
+                    },
+                    {
+                        "name":  "DriverRepository",
+                        "evidence":  [
+                                         {
+                                             "note":  "Derived methods",
+                                             "line_start":  8,
+                                             "line_end":  13,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/repository/DriverRepository.java",
+                                             "method":  null,
+                                             "symbol":  "DriverRepository"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.repository.DriverRepository",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/repository/DriverRepository.java",
+                        "type":  "interface",
+                        "responsibility":  "JPA repository"
+                    },
+                    {
+                        "name":  "Driver",
+                        "evidence":  [
+                                         {
+                                             "note":  "@Entity/@Table and fields",
+                                             "line_start":  8,
+                                             "line_end":  24,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/Driver.java",
+                                             "method":  null,
+                                             "symbol":  "Driver"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.entity.Driver",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/Driver.java",
+                        "type":  "entity",
+                        "responsibility":  "Driver entity mapping"
+                    },
+                    {
+                        "name":  "BaseEntity",
+                        "evidence":  [
+                                         {
+                                             "note":  "Auditing annotations",
+                                             "line_start":  15,
+                                             "line_end":  31,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/BaseEntity.java",
+                                             "method":  null,
+                                             "symbol":  "BaseEntity"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.entity.BaseEntity",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/BaseEntity.java",
+                        "type":  "mappedSuperclass",
+                        "responsibility":  "Auditing fields"
+                    },
+                    {
+                        "name":  "GlobalExceptionHandler",
+                        "evidence":  [
+                                         {
+                                             "note":  "@ControllerAdvice handlers",
+                                             "line_start":  16,
+                                             "line_end":  55,
+                                             "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/exception/GlobalExceptionHandler.java",
+                                             "method":  null,
+                                             "symbol":  "GlobalExceptionHandler"
+                                         }
+                                     ],
+                        "qualified_name":  "com.example.driver.exception.GlobalExceptionHandler",
+                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/exception/GlobalExceptionHandler.java",
+                        "type":  "class",
+                        "responsibility":  "Exception mapping"
+                    }
+                ],
+    "architecture":  {
+                         "relationships":  [
+                                               {
+                                                   "evidence":  [
+                                                                    {
+                                                                        "note":  "Delegation",
+                                                                        "line_start":  28,
+                                                                        "line_end":  62,
+                                                                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                                        "method":  null,
+                                                                        "symbol":  "DriverController"
+                                                                    }
+                                                                ],
+                                                   "from":  "DriverController",
+                                                   "to":  "DriverService",
+                                                   "type":  "calls"
+                                               },
+                                               {
+                                                   "evidence":  [
+                                                                    {
+                                                                        "note":  "Delegation",
+                                                                        "line_start":  22,
+                                                                        "line_end":  55,
+                                                                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/service/impl/DriverServiceImpl.java",
+                                                                        "method":  null,
+                                                                        "symbol":  "DriverServiceImpl"
+                                                                    }
+                                                                ],
+                                                   "from":  "DriverServiceImpl",
+                                                   "to":  "DriverDao",
+                                                   "type":  "calls"
+                                               },
+                                               {
+                                                   "evidence":  [
+                                                                    {
+                                                                        "note":  "Repository usage",
+                                                                        "line_start":  33,
+                                                                        "line_end":  118,
+                                                                        "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                                        "method":  null,
+                                                                        "symbol":  "DriverDaoImpl"
+                                                                    }
+                                                                ],
+                                                   "from":  "DriverDaoImpl",
+                                                   "to":  "DriverRepository",
+                                                   "type":  "calls"
+                                               }
+                                           ],
+                         "style":  "Layered Spring Boot service (controller -\u003e service -\u003e dao -\u003e repository -\u003e database)",
+                         "components":  [
+                                            {
+                                                "evidence":  [
+                                                                 {
+                                                                     "note":  "Mappings",
+                                                                     "line_start":  18,
+                                                                     "line_end":  65,
+                                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                                     "method":  null,
+                                                                     "symbol":  "DriverController"
+                                                                 }
+                                                             ],
+                                                "name":  "DriverController",
+                                                "type":  "REST controller",
+                                                "responsibility":  "HTTP API for Driver ops"
+                                            },
+                                            {
+                                                "evidence":  [
+                                                                 {
+                                                                     "note":  "Delegation",
+                                                                     "line_start":  17,
+                                                                     "line_end":  55,
+                                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/service/impl/DriverServiceImpl.java",
+                                                                     "method":  null,
+                                                                     "symbol":  "DriverServiceImpl"
+                                                                 }
+                                                             ],
+                                                "name":  "DriverServiceImpl",
+                                                "type":  "service",
+                                                "responsibility":  "Delegates to DriverDao"
+                                            },
+                                            {
+                                                "evidence":  [
+                                                                 {
+                                                                     "note":  "Implementation",
+                                                                     "line_start":  21,
+                                                                     "line_end":  127,
+                                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                                     "method":  null,
+                                                                     "symbol":  "DriverDaoImpl"
+                                                                 }
+                                                             ],
+                                                "name":  "DriverDaoImpl",
+                                                "type":  "component/DAO",
+                                                "responsibility":  "Rules + persistence + mapping"
+                                            },
+                                            {
+                                                "evidence":  [
+                                                                 {
+                                                                     "note":  "Derived methods",
+                                                                     "line_start":  8,
+                                                                     "line_end":  13,
+                                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/repository/DriverRepository.java",
+                                                                     "method":  null,
+                                                                     "symbol":  "DriverRepository"
+                                                                 }
+                                                             ],
+                                                "name":  "DriverRepository",
+                                                "type":  "repository",
+                                                "responsibility":  "JPA repository"
+                                            }
+                                        ],
+                         "notes":  [
+                                       "No explicit SecurityFilterChain config found in inventoried sources.",
+                                       "DAO returns ResponseEntity (HTTP coupling)."
+                                   ]
+                     },
+    "business_rules":  [
+                           {
+                               "id":  "BR-001",
+                               "name":  "Prevent duplicate registration by email",
+                               "actions":  [
+                                               "Throw UserAlreadyPresentException"
+                                           ],
+                               "evidence":  [
+                                                {
+                                                    "note":  "Duplicate email check",
+                                                    "line_start":  33,
+                                                    "line_end":  35,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "addOneDriver",
+                                                    "symbol":  "DriverDaoImpl#addOneDriver"
+                                                }
+                                            ],
+                               "description":  "Reject create when email already exists.",
+                               "conditions":  [
+                                                  "existsByEmail == true"
+                                              ],
+                               "confidence":  "high"
+                           },
+                           {
+                               "id":  "BR-002",
+                               "name":  "Prevent duplicate registration by username",
+                               "actions":  [
+                                               "Throw UserAlreadyPresentException"
+                                           ],
+                               "evidence":  [
+                                                {
+                                                    "note":  "Duplicate username check",
+                                                    "line_start":  36,
+                                                    "line_end":  38,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "addOneDriver",
+                                                    "symbol":  "DriverDaoImpl#addOneDriver"
+                                                }
+                                            ],
+                               "description":  "Reject create when username already exists.",
+                               "conditions":  [
+                                                  "existsByUsername == true"
+                                              ],
+                               "confidence":  "high"
+                           },
+                           {
+                               "id":  "BR-003",
+                               "name":  "Hash password on driver creation",
+                               "actions":  [
+                                               "password := passwordEncoder.encode(password)"
+                                           ],
+                               "evidence":  [
+                                                {
+                                                    "note":  "BCrypt bean",
+                                                    "line_start":  26,
+                                                    "line_end":  29,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/Application.java",
+                                                    "method":  "passwordEncoder",
+                                                    "symbol":  "Application#passwordEncoder"
+                                                },
+                                                {
+                                                    "note":  "encode call",
+                                                    "line_start":  40,
+                                                    "line_end":  40,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "addOneDriver",
+                                                    "symbol":  "DriverDaoImpl#addOneDriver"
+                                                }
+                                            ],
+                               "description":  "Encode password using PasswordEncoder (BCrypt bean).",
+                               "conditions":  [
+                                                  "create via addOneDriver"
+                                              ],
+                               "confidence":  "high"
+                           },
+                           {
+                               "id":  "BR-004",
+                               "name":  "Default availability true on create",
+                               "actions":  [
+                                               "availability := true"
+                                           ],
+                               "evidence":  [
+                                                {
+                                                    "note":  "availability init",
+                                                    "line_start":  41,
+                                                    "line_end":  41,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "addOneDriver",
+                                                    "symbol":  "DriverDaoImpl#addOneDriver"
+                                                }
+                                            ],
+                               "description":  "Set availability=true when creating driver.",
+                               "conditions":  [
+                                                  "create via addOneDriver"
+                                              ],
+                               "confidence":  "high"
+                           },
+                           {
+                               "id":  "BR-005",
+                               "name":  "Reject unknown driver IDs",
+                               "actions":  [
+                                               "Throw UserNotFoundException"
+                                           ],
+                               "evidence":  [
+                                                {
+                                                    "note":  "guard",
+                                                    "line_start":  50,
+                                                    "line_end":  53,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "getDriverById",
+                                                    "symbol":  "DriverDaoImpl#getDriverById"
+                                                },
+                                                {
+                                                    "note":  "guard",
+                                                    "line_start":  62,
+                                                    "line_end":  65,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "deleteDriverById",
+                                                    "symbol":  "DriverDaoImpl#deleteDriverById"
+                                                },
+                                                {
+                                                    "note":  "guard",
+                                                    "line_start":  80,
+                                                    "line_end":  83,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "updateDriverDetails",
+                                                    "symbol":  "DriverDaoImpl#updateDriverDetails"
+                                                },
+                                                {
+                                                    "note":  "guard",
+                                                    "line_start":  104,
+                                                    "line_end":  107,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "updateDriverStatus",
+                                                    "symbol":  "DriverDaoImpl#updateDriverStatus"
+                                                }
+                                            ],
+                               "description":  "For get/delete/update/status-change, throw UserNotFoundException if id missing.",
+                               "conditions":  [
+                                                  "findById empty"
+                                              ],
+                               "confidence":  "high"
+                           },
+                           {
+                               "confidence":  "high",
+                               "actions":  [
+                                               "set username/email and save"
+                                           ],
+                               "name":  "Update username/email only",
+                               "caveats":  [
+                                               "UpdateDriverDetailsDto has password field but is ignored in implementation."
+                                           ],
+                               "description":  "Update sets username/email; password in update DTO not applied.",
+                               "id":  "BR-006",
+                               "evidence":  [
+                                                {
+                                                    "note":  "sets username/email only",
+                                                    "line_start":  84,
+                                                    "line_end":  89,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "updateDriverDetails",
+                                                    "symbol":  "DriverDaoImpl#updateDriverDetails"
+                                                }
+                                            ],
+                               "conditions":  [
+                                                  "driver exists"
+                                              ]
+                           },
+                           {
+                               "id":  "BR-007",
+                               "name":  "Update availability from request",
+                               "actions":  [
+                                               "availability := requestDto.availability"
+                                           ],
+                               "evidence":  [
+                                                {
+                                                    "note":  "sets availability",
+                                                    "line_start":  108,
+                                                    "line_end":  112,
+                                                    "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                    "method":  "updateDriverStatus",
+                                                    "symbol":  "DriverDaoImpl#updateDriverStatus"
+                                                }
+                                            ],
+                               "description":  "Status change sets availability from request DTO.",
+                               "conditions":  [
+                                                  "driver exists"
+                                              ],
+                               "confidence":  "high"
+                           }
+                       ],
+    "limitations":  [
+                        "No runtime/deployment context assessed.",
+                        "No explicit authn/authz configuration found in inventoried sources.",
+                        "No migration files found; schema inferred from JPA + properties."
+                    ],
+    "data_flows":  [
+                       {
+                           "evidence":  [
+                                            {
+                                                "note":  "Entry point",
+                                                "line_start":  28,
+                                                "line_end":  31,
+                                                "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                "method":  "addOneDriver",
+                                                "symbol":  "DriverController#addOneDriver"
+                                            },
+                                            {
+                                                "note":  "Flow",
+                                                "line_start":  31,
+                                                "line_end":  44,
+                                                "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                "method":  "addOneDriver",
+                                                "symbol":  "DriverDaoImpl#addOneDriver"
+                                            }
+                                        ],
+                           "name":  "Create driver account",
+                           "steps":  [
+                                         "POST /api/driver/add",
+                                         "Validate request",
+                                         "Uniqueness checks",
+                                         "BCrypt encode",
+                                         "availability=true",
+                                         "save",
+                                         "map to DTO, 201"
+                                     ]
+                       },
+                       {
+                           "evidence":  [
+                                            {
+                                                "note":  "Entry point",
+                                                "line_start":  54,
+                                                "line_end":  57,
+                                                "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                "method":  "updateDriverStatus",
+                                                "symbol":  "DriverController#updateDriverStatus"
+                                            },
+                                            {
+                                                "note":  "Flow",
+                                                "line_start":  103,
+                                                "line_end":  112,
+                                                "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                                "method":  "updateDriverStatus",
+                                                "symbol":  "DriverDaoImpl#updateDriverStatus"
+                                            }
+                                        ],
+                           "name":  "Change driver availability",
+                           "steps":  [
+                                         "PUT /api/driver/change-status/{driverId}",
+                                         "findById guard",
+                                         "set availability",
+                                         "save",
+                                         "map to DTO"
+                                     ]
+                       }
+                   ],
+    "integrations":  [
+                         {
+                             "direction":  "outbound",
+                             "evidence":  [
+                                              {
+                                                  "note":  "Datasource config; do not record secrets",
+                                                  "line_start":  3,
+                                                  "line_end":  10,
+                                                  "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/resources/application.properties",
+                                                  "method":  null,
+                                                  "symbol":  "application.properties"
+                                              }
+                                          ],
+                             "name":  "MySQL database",
+                             "type":  "JDBC datasource"
+                         },
+                         {
+                             "direction":  "outbound",
+                             "evidence":  [
+                                              {
+                                                  "note":  "Eureka dependency",
+                                                  "line_start":  74,
+                                                  "line_end":  77,
+                                                  "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/pom.xml",
+                                                  "method":  null,
+                                                  "symbol":  "pom.xml"
+                                              },
+                                              {
+                                                  "note":  "eureka.instance.hostname",
+                                                  "line_start":  12,
+                                                  "line_end":  12,
+                                                  "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/resources/application.properties",
+                                                  "method":  null,
+                                                  "symbol":  "application.properties"
+                                              }
+                                          ],
+                             "name":  "Eureka service discovery",
+                             "type":  "service registry client"
+                         }
+                     ],
+    "apis":  [
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#addOneDriver -\u003e DriverDaoImpl#addOneDriver"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-001",
+                     "method":  "addOneDriver",
+                     "response_type":  "com.example.driver.payload.DriverDto",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint",
+                                          "line_start":  28,
+                                          "line_end":  31,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "addOneDriver",
+                                          "symbol":  "DriverController#addOneDriver"
+                                      },
+                                      {
+                                          "note":  "Implementation",
+                                          "line_start":  31,
+                                          "line_end":  44,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "addOneDriver",
+                                          "symbol":  "DriverDaoImpl#addOneDriver"
+                                      }
+                                  ],
+                     "request_type":  "com.example.driver.entity.Driver",
+                     "path":  "/api/driver/add",
+                     "http_method":  "POST"
+                 },
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#getDriverById -\u003e DriverDaoImpl#getDriverById"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-002",
+                     "method":  "getDriverById",
+                     "response_type":  "com.example.driver.payload.DriverDto",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint",
+                                          "line_start":  33,
+                                          "line_end":  36,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "getDriverById",
+                                          "symbol":  "DriverController#getDriverById"
+                                      },
+                                      {
+                                          "note":  "Implementation",
+                                          "line_start":  49,
+                                          "line_end":  57,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "getDriverById",
+                                          "symbol":  "DriverDaoImpl#getDriverById"
+                                      }
+                                  ],
+                     "request_type":  null,
+                     "path":  "/api/driver/{driverId}",
+                     "http_method":  "GET"
+                 },
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#deleteDriverById -\u003e DriverDaoImpl#deleteDriverById"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-003",
+                     "method":  "deleteDriverUsingId",
+                     "response_type":  "com.example.driver.payload.DriverDto",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint",
+                                          "line_start":  38,
+                                          "line_end":  41,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "deleteDriverUsingId",
+                                          "symbol":  "DriverController#deleteDriverUsingId"
+                                      },
+                                      {
+                                          "note":  "Implementation",
+                                          "line_start":  61,
+                                          "line_end":  69,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "deleteDriverById",
+                                          "symbol":  "DriverDaoImpl#deleteDriverById"
+                                      }
+                                  ],
+                     "request_type":  null,
+                     "path":  "/api/driver/{driverId}",
+                     "http_method":  "DELETE"
+                 },
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#updateDriverDetails -\u003e DriverDaoImpl#updateDriverDetails"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-004",
+                     "method":  "updateDriverDetails",
+                     "response_type":  "com.example.driver.payload.DriverDto",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint",
+                                          "line_start":  43,
+                                          "line_end":  47,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "updateDriverDetails",
+                                          "symbol":  "DriverController#updateDriverDetails"
+                                      },
+                                      {
+                                          "note":  "Implementation",
+                                          "line_start":  73,
+                                          "line_end":  89,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "updateDriverDetails",
+                                          "symbol":  "DriverDaoImpl#updateDriverDetails"
+                                      }
+                                  ],
+                     "request_type":  "com.example.driver.payload.UpdateDriverDetailsDto",
+                     "path":  "/api/driver/update/{driverId}",
+                     "http_method":  "PUT"
+                 },
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#getAllDriverDetails -\u003e DriverDaoImpl#getAllDriverDetails"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-005",
+                     "method":  "getAllDriver",
+                     "response_type":  "java.util.List\u003ccom.example.driver.payload.DriverDto\u003e",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint",
+                                          "line_start":  49,
+                                          "line_end":  52,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "getAllDriver",
+                                          "symbol":  "DriverController#getAllDriver"
+                                      },
+                                      {
+                                          "note":  "Implementation",
+                                          "line_start":  95,
+                                          "line_end":  99,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "getAllDriverDetails",
+                                          "symbol":  "DriverDaoImpl#getAllDriverDetails"
+                                      }
+                                  ],
+                     "request_type":  null,
+                     "path":  "/api/driver/all",
+                     "http_method":  "GET"
+                 },
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#updateDriverStatus -\u003e DriverDaoImpl#updateDriverStatus"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-006",
+                     "method":  "updateDriverStatus",
+                     "response_type":  "com.example.driver.payload.DriverDto",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint",
+                                          "line_start":  54,
+                                          "line_end":  57,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "updateDriverStatus",
+                                          "symbol":  "DriverController#updateDriverStatus"
+                                      },
+                                      {
+                                          "note":  "Implementation",
+                                          "line_start":  103,
+                                          "line_end":  112,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "updateDriverStatus",
+                                          "symbol":  "DriverDaoImpl#updateDriverStatus"
+                                      }
+                                  ],
+                     "request_type":  "com.example.driver.payload.DriverDto",
+                     "path":  "/api/driver/change-status/{driverId}",
+                     "http_method":  "PUT"
+                 },
+                 {
+                     "service_calls":  [
+                                           "DriverServiceImpl#getDriverByName -\u003e DriverDaoImpl#getDriverByName"
+                                       ],
+                     "controller":  "com.example.driver.controller.DriverController",
+                     "id":  "API-DRIVER-007",
+                     "method":  "getDriverByName",
+                     "response_type":  "java.util.Optional\u003ccom.example.driver.entity.Driver\u003e",
+                     "evidence":  [
+                                      {
+                                          "note":  "Endpoint returns entity",
+                                          "line_start":  59,
+                                          "line_end":  62,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                          "method":  "getDriverByName",
+                                          "symbol":  "DriverController#getDriverByName"
+                                      },
+                                      {
+                                          "note":  "Repository lookup",
+                                          "line_start":  116,
+                                          "line_end":  118,
+                                          "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/dao/impl/DriverDaoImpl.java",
+                                          "method":  "getDriverByName",
+                                          "symbol":  "DriverDaoImpl#getDriverByName"
+                                      }
+                                  ],
+                     "request_type":  null,
+                     "path":  "/api/driver/name/{username}",
+                     "http_method":  "GET"
+                 }
+             ],
+    "technical_risks":  [
+                            {
+                                "id":  "RISK-001",
+                                "description":  "ddl-auto=update can cause unintended schema drift.",
+                                "evidence":  [
+                                                 {
+                                                     "note":  "ddl-auto=update",
+                                                     "line_start":  8,
+                                                     "line_end":  9,
+                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/resources/application.properties",
+                                                     "method":  null,
+                                                     "symbol":  "application.properties"
+                                                 }
+                                             ],
+                                "severity":  "high",
+                                "status":  "confirmed",
+                                "recommendation":  "Use Flyway/Liquibase and set ddl-auto validate/none outside dev."
+                            },
+                            {
+                                "id":  "RISK-002",
+                                "description":  "Endpoint returns entity containing password field (possible hash exposure).",
+                                "evidence":  [
+                                                 {
+                                                     "note":  "Returns entity",
+                                                     "line_start":  59,
+                                                     "line_end":  62,
+                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/controller/DriverController.java",
+                                                     "method":  "getDriverByName",
+                                                     "symbol":  "DriverController#getDriverByName"
+                                                 },
+                                                 {
+                                                     "note":  "password field",
+                                                     "line_start":  17,
+                                                     "line_end":  22,
+                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/Driver.java",
+                                                     "method":  null,
+                                                     "symbol":  "Driver"
+                                                 }
+                                             ],
+                                "severity":  "high",
+                                "status":  "confirmed",
+                                "recommendation":  "Return DTO; ensure password never serializes."
+                            },
+                            {
+                                "id":  "RISK-003",
+                                "description":  "Auditing updatedAt/updateBy are marked updatable=false.",
+                                "evidence":  [
+                                                 {
+                                                     "note":  "updatable=false on last-modified fields",
+                                                     "line_start":  26,
+                                                     "line_end":  31,
+                                                     "path":  "Cab-Service_Driver-Service/Cab-Service-Driver-Service/src/main/java/com/example/driver/entity/BaseEntity.java",
+                                                     "method":  null,
+                                                     "symbol":  "BaseEntity"
+                                                 }
+                                             ],
+                                "severity":  "medium",
+                                "status":  "confirmed",
+                                "recommendation":  "Review auditing column mutability and AuditorAware."
+                            }
+                        ]
+}
